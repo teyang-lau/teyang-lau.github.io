@@ -11,6 +11,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			video {
+				height: auto;
+				width: 100%;
+				object-fit: cover;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -48,7 +55,10 @@
 								<p>Built and deployed an AI-powered auto video editing tool for beginner/leisure diving enthusiasts, using state-of-the-art computer vision object detection models!<br /> 
 								</p>
 							</header>
-							<a href="https://github.com/teyang-lau/you-only-edit-once" target="_blank" class="image main"><img src="images/yoeo.gif" alt="" /></a>
+							<a href="https://github.com/teyang-lau/you-only-edit-once" target="_blank" class="video main" alt="">
+								<video autoplay loop width: 100%; height: auto;><source src="images/yoeo.mp4" type="video/mp4"></video>
+							</a>
+							<br><br>
 							<ul class="actions special">
 								<li><a href="https://you-only-edit-once.streamlit.app/" target="_blank" class="button large">Web App</a></li>
 								<li><a href="https://github.com/teyang-lau/you-only-edit-once" target="_blank" class="button large">More Details</a></li>
