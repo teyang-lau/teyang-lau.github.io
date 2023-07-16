@@ -55,30 +55,125 @@
 		<!-- Main -->
 		<div id="main">
 
-			<!-- Featured Post -->
+
 			<article class="post featured">
 				<header class="major">
 					<span class="date">About Me</span>
-					<a href="#" class="image main"><img src="images/TeYannn.gif" alt="" /></a>
-					<a href="#" class="image main"><img src="images/NST.jpg" alt="" /></a>
-					<h2>My Journey Through Data Science</h2>
-					<p>My background in Psychology provided me with the understanding of human behavior, cognition and
-						emotion.
-						It also imparted to me the importance of rigorous data collection and analysis, which underlie
-						the foundation of any good machine learning models.<br />
-						Through my work as a researcher and data scientist, I was exposed to big and diverse datasets,
-						which required
-						careful cleaning and detailed exploration to gain
-						deep understandings and insights. It also provided me the opportunity to apply machine learning
-						techniques to understand more about sleep,
-						physical activity and health. <br />
-						Recently, I am learning and building end-to-end MLOps workflow by using a variety of tools such
-						as MLflow, AWS SageMaker, and GCP Vertex AI. As more organizations incorporate machine learning
-						into their business, it becomes even more essential to have automated pipelines and workflows,
-						with CI/CD/CM
-						that take over the traditional manual way of handling machine learning projects.
-					</p>
-					</ul>
+					<div class="counter-container">
+						<img class="custom-icon" src="./images/speed.svg" alt="Custom Icon">
+						</svg><br>
+						<span>Today's Predicted Readiness</span>
+						<div class="counter"></div>
+					</div>
+
+
+					<style>
+						* {
+							box-sizing: border-box;
+						}
+
+						.custom-icon {
+							/* Add your custom icon styles here */
+							width: 48px;
+							height: 48px;
+							fill: #000000;
+							display: block;
+							margin-left: auto;
+							margin-right: auto;
+						}
+
+						.counter-container {
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
+							text-align: center;
+							margin: 0px 0px;
+							padding: 0;
+							line-height: 1.5;
+						}
+
+						.counter {
+							font-size: 60px;
+							margin-top: 0px;
+						}
+
+						@media (max-width: 580px) {
+							body {
+								flex-direction: column;
+							}
+						}
+					</style>
+
+					<script>
+						const counters = document.querySelectorAll(".counter");
+
+						counters.forEach((counter) => {
+							counter.innerText = "0";
+							const updateCounter = (target) => {
+								const count = +counter.innerText;
+								const increment = target / 200;
+								if (count < target) {
+									counter.innerText = `${Math.ceil(count + increment)}`;
+									setTimeout(() => updateCounter(target), 50);
+								} else {
+									counter.innerText = target;
+								}
+							};
+
+							fetch('https://storage.googleapis.com/oura-flask2/oura_processed/readiness.csv')
+								.then(response => response.text())
+								.then(data => {
+									const rows = data.split('\n');
+									const firstValue = rows[0].split(',')[0];
+									const firstNumber = parseInt(firstValue, 10);
+
+									counter.setAttribute('data-target', firstNumber);
+									updateCounter(firstNumber);
+								})
+								.catch(error => {
+									console.error(error);
+								});
+						});
+					</script>
+
+					<iframe title="My Sleep This Year" aria-label="Scatter Plot" id="datawrapper-chart-M1dZc"
+						src="https://datawrapper.dwcdn.net/M1dZc/2/" scrolling="no" frameborder="0"
+						style="width: 0; min-width: 100% !important; border: none;" height="500"
+						data-external="1"></iframe>
+					<script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) { var e = document.querySelectorAll("iframe"); for (var t in a.data["datawrapper-height"]) for (var r = 0; r < e.length; r++)if (e[r].contentWindow === a.source) { var i = a.data["datawrapper-height"][t] + "px"; e[r].style.height = i } } })) }();
+					</script>
+
+
+					<!-- Featured Post -->
+
+					<header class="major">
+						<a href="#" class="image main"><img src="images/TeYannn.gif" alt="" /></a>
+						<h2>My Journey Through Data Science</h2>
+						<p>My background in Psychology provided me with the understanding of human behavior,
+							cognition and
+							emotion.
+							It also imparted to me the importance of rigorous data collection and analysis, which
+							underlie
+							the foundation of any good machine learning models.<br />
+							Through my work as a researcher and data scientist, I was exposed to big and diverse
+							datasets,
+							which required
+							careful cleaning and detailed exploration to gain
+							deep understandings and insights. It also provided me the opportunity to apply machine
+							learning
+							techniques to understand more about sleep,
+							physical activity and health. <br />
+							Recently, I am learning and building end-to-end MLOps workflow by using a variety of
+							tools such
+							as MLflow, AWS SageMaker, and GCP Vertex AI. As more organizations incorporate machine
+							learning
+							into their business, it becomes even more essential to have automated pipelines and
+							workflows,
+							with CI/CD/CM
+							that take over the traditional manual way of handling machine learning projects.
+						</p>
+						</ul>
+						<a href="#" class="image main"><img src="images/NST.jpg" alt="" /></a>
 			</article>
 
 
