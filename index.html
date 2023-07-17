@@ -10,10 +10,17 @@
 	<title>TeYang Lau Portfolio</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="static/css/main.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
+		<link rel="stylesheet" href="static/css/noscript.css" />
 	</noscript>
+	<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
+	<link rel="manifest" href="static/favicon/site.webmanifest">
+	<link rel="mask-icon" href="static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
 </head>
 
 <body class="is-preload">
@@ -60,7 +67,7 @@
 				<header class="major">
 					<span class="date">About Me</span>
 					<div class="counter-container">
-						<img class="custom-icon" src="./images/speed.svg" alt="Custom Icon">
+						<img class="custom-icon" src="../static/images/speed.svg" alt="Custom Icon">
 						</svg><br>
 						<span>Today's Predicted Readiness</span>
 						<div class="counter"></div>
@@ -107,32 +114,52 @@
 					<script>
 						const counters = document.querySelectorAll(".counter");
 
-						counters.forEach((counter) => {
-							counter.innerText = "0";
-							const updateCounter = (target) => {
-								const count = +counter.innerText;
-								const increment = target / 200;
-								if (count < target) {
-									counter.innerText = `${Math.ceil(count + increment)}`;
-									setTimeout(() => updateCounter(target), 50);
-								} else {
-									counter.innerText = target;
+						const startCounterWhenVisible = (entries, observer) => {
+							entries.forEach((entry) => {
+								if (entry.isIntersecting) {
+									const counter = entry.target;
+									const target = counter.getAttribute("data-target");
+									counter.innerText = "0";
+
+									const updateCounter = (target) => {
+										const count = +counter.innerText;
+										const increment = target / 200;
+										if (count < target) {
+											counter.innerText = `${Math.ceil(count + increment)}`;
+											setTimeout(() => updateCounter(target), 50);
+										} else {
+											counter.innerText = target;
+										}
+									};
+
+									fetch('https://storage.googleapis.com/oura-flask2/oura_processed/readiness.csv')
+										.then(response => response.text())
+										.then(data => {
+											const rows = data.split('\n');
+											const firstValue = rows[0].split(',')[0];
+											const firstNumber = parseInt(firstValue, 10);
+											counter.setAttribute('data-target', firstNumber);
+											updateCounter(firstNumber);
+										})
+										.catch(error => {
+											console.error(error);
+										});
+
+									observer.unobserve(counter);
 								}
-							};
+							});
+						};
 
-							fetch('https://storage.googleapis.com/oura-flask2/oura_processed/readiness.csv')
-								.then(response => response.text())
-								.then(data => {
-									const rows = data.split('\n');
-									const firstValue = rows[0].split(',')[0];
-									const firstNumber = parseInt(firstValue, 10);
+						const options = {
+							root: null,
+							rootMargin: "0px",
+							threshold: 0.1
+						};
 
-									counter.setAttribute('data-target', firstNumber);
-									updateCounter(firstNumber);
-								})
-								.catch(error => {
-									console.error(error);
-								});
+						const observer = new IntersectionObserver(startCounterWhenVisible, options);
+
+						counters.forEach((counter) => {
+							observer.observe(counter);
 						});
 					</script>
 
@@ -147,8 +174,8 @@
 					<!-- Featured Post -->
 
 					<header class="major">
-						<a href="#" class="image main"><img src="images/TeYannn.gif" alt="" /></a>
-						<h2>My Journey Through Data Science</h2>
+						<a href="#" class="image main"><img src="static/images/TeYannn.com.gif" alt="" /></a>
+						<h2>My Journey Through Data Science & AI</h2>
 						<p>My background in Psychology provided me with the understanding of human behavior,
 							cognition and
 							emotion.
@@ -173,7 +200,7 @@
 							that take over the traditional manual way of handling machine learning projects.
 						</p>
 						</ul>
-						<a href="#" class="image main"><img src="images/NST.jpg" alt="" /></a>
+						<a href="#" class="image main"><img src="static/images/NST.jpg" alt="" /></a>
 			</article>
 
 
@@ -226,13 +253,13 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="static/js/jquery.min.js"></script>
+	<script src="static/js/jquery.scrollex.min.js"></script>
+	<script src="static/js/jquery.scrolly.min.js"></script>
+	<script src="static/js/browser.min.js"></script>
+	<script src="static/js/breakpoints.min.js"></script>
+	<script src="static/js/util.js"></script>
+	<script src="static/js/main.js"></script>
 
 </body>
 
