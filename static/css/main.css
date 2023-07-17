@@ -437,6 +437,19 @@ hr {
 	border-bottom-color: #eeeeee;
 }
 
+.google-map {
+	padding-bottom: 50%;
+	position: relative;
+}
+
+.google-map iframe {
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	position: absolute;
+}
+
 /* Row */
 
 .row {
@@ -3103,7 +3116,7 @@ header.major>.date:after {
 @media screen and (max-width: 980px) {
 
 	header br {
-		display: none;
+		display: block !important;
 	}
 
 }
