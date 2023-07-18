@@ -21,6 +21,11 @@
 	<link rel="mask-icon" href="static/favicon/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<!-- <script src="static/js/plotly.min.js"></script> -->
+	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body class="is-preload">
@@ -164,18 +169,161 @@
 					</script>
 
 					<iframe title="My Sleep This Year" aria-label="Scatter Plot" id="datawrapper-chart-M1dZc"
-						src="https://datawrapper.dwcdn.net/M1dZc/2/" scrolling="no" frameborder="0"
+						src="https://datawrapper.dwcdn.net/M1dZc/" scrolling="no" frameborder="0"
 						style="width: 0; min-width: 100% !important; border: none;" height="500"
 						data-external="1"></iframe>
 					<script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) { var e = document.querySelectorAll("iframe"); for (var t in a.data["datawrapper-height"]) for (var r = 0; r < e.length; r++)if (e[r].contentWindow === a.source) { var i = a.data["datawrapper-height"][t] + "px"; e[r].style.height = i } } })) }();
 					</script>
 
 
+					<div class="container">
+						<div class="iframe-container">
+							<!-- Your iframe code here -->
+							<iframe title="Sleep Stages for Past 30 Days" aria-label="Interactive area chart"
+								id="datawrapper-chart-gYCuo" src="https://datawrapper.dwcdn.net/gYCuo/1/" scrolling="no"
+								frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="300"
+								data-external="1"></iframe>
+							<script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) { var e = document.querySelectorAll("iframe"); for (var t in a.data["datawrapper-height"]) for (var r = 0; r < e.length; r++)if (e[r].contentWindow === a.source) { var i = a.data["datawrapper-height"][t] + "px"; e[r].style.height = i } } })) }();
+							</script>
+						</div>
+
+						<div class="plot-container">
+
+							<style type="text/css">
+								.chartBox {
+									width: 400;
+								}
+							</style>
+
+							<!-- rounded radial nested donut chart  -->
+							<div class="chartBox">
+								<canvas id="myChart"></canvas>
+							</div>
+							<script>
+
+								function fetchJsonData() {
+									return fetch('https://storage.googleapis.com/oura-flask2/oura_processed/oura_processed_average_sleep.json')
+										.then(response => response.json())
+										.then(jsonData => jsonData) // Return the JSON data
+										.catch(error => {
+											console.error('Error fetching JSON data:', error);
+											return null;
+										});
+								}
+
+								var colors = [
+									'#0c2878',
+									'#253494',
+									'#225ea8',
+									'#1d91c0',
+									'#41b6c4',
+									'#7fcdbb'
+								];
+								var title = ["Time in Bed", "Total Sleep Time", "Bedtime", "Waketime", "Efficiency", "Sleep Variability"];
+
+								function initializeChart() {
+									fetchJsonData().then(data => {
+										if (data) {
+											allValues = data.values;
+											text = data.text;
+
+											let dataset = [];
+											for (let i = 0; i < allValues.length; i++) {
+												dataset.push({
+													data: allValues[i],
+													backgroundColor: colors[i],
+												});
+											}
+											// draw labels
+											const labelsRadialBar = {
+												id: 'labelsRadialBar',
+												beforeDatasetsDraw(chart, args, pluginOptions) {
+													const { ctx, data, scales } = chart;
+
+													ctx.save();
+													ctx.font = "bold 14px sans-serif";
+													ctx.textAlign = "right";
+													ctx.textBaseline = "middle";
+
+													for (let i = 0; i < data.datasets.length; i++) {
+														ctx.fillStyle = data.datasets[i].backgroundColor;
+														const outerRadius = chart.getDatasetMeta(i).controller.outerRadius;
+														const innerRadius = chart.getDatasetMeta(i).controller.innerRadius;
+														const width = outerRadius - innerRadius;
+														const xPos = chart.getDatasetMeta(i).data[0].x;
+														const yPos = chart.getDatasetMeta(i).data[0].y;
+														ctx.fillText(`${title[i]}: ${text[i]}`, xPos - 5, yPos - innerRadius - (width / 2))
+													}
+												}
+											}
+
+											new Chart(document.getElementById('myChart'), {
+												type: 'doughnut',
+												data: {
+													datasets: dataset
+												},
+												options: {
+													cutout: "30%",
+													circumference: (ctx) => {
+														return ctx.dataset.data[0] / 100 * 320
+													},
+													borderRadius: 30,
+													borderWidth: 5,
+													animation: {
+														duration: 5000,
+													},
+													responsive: true,
+													plugins: {
+														title: {
+															display: true,
+															text: 'Average Sleep for Past 30 Days',
+															position: "top",
+															align: "start",
+															color: "black",
+															font: { "family": "Roboto", "size": 22, "weight": "bold" }
+														},
+														tooltip: {
+															callbacks: {
+																title: function (context) {
+																	return `${title[context[0].datasetIndex]}: ${text[context[0].datasetIndex]}`;
+																},
+																label: function (context) {
+																	return ''
+																}
+															},
+															displayColors: false
+														}
+													},
+												},
+												plugins: [labelsRadialBar]
+											});
+										};
+									});
+								}
+
+								const observer2 = new IntersectionObserver((entries) => {
+									entries.forEach((entry) => {
+										if (entry.isIntersecting) {
+											initializeChart();
+											observer2.unobserve(entry.target);
+										}
+									});
+								}, { threshold: 0.1 });
+
+								const chartBox = document.querySelector(".chartBox");
+								observer2.observe(chartBox);
+							</script>
+						</div>
+
+					</div>
+
+
+
 					<!-- Featured Post -->
 
 					<header class="major">
+						<br>
 						<a href="#" class="image main"><img src="static/images/TeYannn.com.gif" alt="" /></a>
-						<a href="#" class="image main"><img src="https://24z434.csb.app" alt="" /></a>
 
 						<h2>My Journey Through Data Science & AI</h2>
 						<p>My background in Psychology provided me with the understanding of human behavior,

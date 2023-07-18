@@ -450,6 +450,39 @@ hr {
 	position: absolute;
 }
 
+/* Styles for the container */
+.container {
+	display: flex;
+	/* Use flexbox to arrange elements side by side */
+	flex-wrap: wrap;
+	/* Allow wrapping if the container's width is too small */
+	justify-content: center;
+	text-align: center;
+	margin: 0px 0px;
+	padding: 0;
+}
+
+/* Styles for the iframe container */
+.iframe-container {
+	flex: 1;
+	/* Use flex-grow: 1 to let it take available space */
+	min-width: 300px;
+	/* Set a minimum width to avoid collapsing */
+	padding: 20px;
+	/* Optional: Add some spacing around the iframe */
+}
+
+/* Styles for the plot container */
+.plot-container {
+	flex: 1;
+	/* Use flex-grow: 1 to let it take available space */
+	min-width: 410px;
+	/* Set a minimum width to avoid collapsing */
+	padding: 10px;
+	/* Optional: Add some spacing around the plot */
+
+}
+
 /* Row */
 
 .row {
