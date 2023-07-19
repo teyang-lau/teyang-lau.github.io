@@ -14,9 +14,11 @@
 	<noscript>
 		<link rel="stylesheet" href="static/css/noscript.css" />
 	</noscript>
-	<style type="text/css">
-		a:active {
-			text-decoration: none;
+	<style>
+		video {
+			height: auto;
+			width: 100%;
+			object-fit: cover;
 		}
 	</style>
 	<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
@@ -44,8 +46,8 @@
 				<li><a href="index.html">About Me</a></li>
 				<li><a href="projects.html">Projects</a></li>
 				<li><a href="cv.html">Resume & CV</a></li>
-				<li class="active"><a href="publications.html">Publications</a></li>
-				<li><a href="hobbies-interests.html">Hobbies & Interests</a></li>
+				<li><a href="publications.html">Publications</a></li>
+				<li class="active"><a href="hobbies-interests.html">Hobbies & Interests</a></li>
 			</ul>
 			<ul class="icons">
 				<li><a href="https://github.com/teyang-lau" target="_blank" class="icon brands fa-github"><span
@@ -58,35 +60,39 @@
 		<!-- Main -->
 		<div id="main">
 
-			<!-- Publications -->
-			<header class="major">
-				<h1>Publications</h1>
-			</header>
+			<!-- Featured Post -->
+			<article class="post featured">
+				<header class="major">
+					<span class="date">Featured Drone Video</span>
+					<p>In my free time, I enjoy playing football, travelling, photography and flying FPV drones.
+						<br>Here
+						are some FPV drone videos and photography from my travels!
+					</p>
 
-			<!-- List -->
-			<ul>
-				<li><a href="https://academic.oup.com/sleep/article-lookup/doi/10.1093/sleep/zsac315" target="_blank">A
-						Randomised Controlled Trial of a Digital, Small Incentive-based Intervention for Working Adults
-						with Short Sleep. <i>SLEEP</i>. 2023. Ong JL, Massar SAA, <b>Lau T</b>, et al.</a></li>
-				<li><a href="https://academic.oup.com/sleepadvances/article/3/1/zpac026/6679532" target="_blank">Minimum
-						number of nights for reliable estimation of habitual sleep using a consumer sleep tracker.
-						<i>Sleep Advances</i>, 2022. <b>Lau T</b> et al.</a></li>
-				<li><a href="https://www.nature.com/articles/s41598-021-93924-z" target="_blank">A longitudinal analysis
-						of COVID-19 lockdown stringency on sleep and resting heart rate measures across 20 countries.
-						<i>Scientific Reports</i>, 2021. Ong JL, <b>Lau T</b>, et al.</a></li>
-				<li><a href="https://academic.oup.com/sleep/article/44/2/zsaa179/5904453" target="_blank">COVID-19
-						related mobility reduction: heterogenous effects on sleep and physical activity rhythms.
-						<i>SLEEP</i>, 2021. Ong JL, <b>Lau T</b>, et al.</a></li>
-				<li><a href="https://academic.oup.com/sleep/article/43/9/zsaa058/5813764" target="_blank">A daytime nap
-						restores hippocampal function and improves declarative learning. <i>SLEEP</i>, 2020. Ong JL,
-						<b>Lau T</b>, et al.</a></li>
-				<li><a href="https://academic.oup.com/sleep/article/43/12/zsaa129/5867089" target="_blank">Cognitive
-						effects of split and continuous sleep schedules in adolescents differ according to total sleep
-						opportunity.<i>SLEEP</i>, 2020. Lo, JC, Leong RLF, …, <b>Lau T</b>, et al.</a></li>
-				<li><a href="https://doi.org/10.1007/S41105-018-0167-5" target="_blank">Evaluation of a portable light
-						device for phase advancing the circadian rhythm in the home environment. <i>Sleep Biol
-							Rhythms</i>, 2018. <b>Lau T</b>, Lovato N, Lack, L.</a></li>
-			</ul>
+					<style>
+						.video-container {
+							aspect-ratio: 16/9;
+						}
+
+						.video-container iframe {
+							width: 100%;
+							height: 100%;
+						}
+					</style>
+					<div class="video-container">
+						<iframe width="1280" height="720"
+							src="https://www.youtube.com/embed/SAuUkyZfD5E?start=35&autoplay=1&mute=1" allowfullscreen>
+						</iframe>
+					</div>
+
+					<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+					<div class="elfsight-app-b2eff8da-7223-409c-b4cc-47ef782bffc9"></div>
+
+					<div>
+						<iframe src='https://widgets.sociablekit.com/instagram-feed/iframe/168678' frameborder='0'
+							width='100%' height='1000'></iframe>
+					</div>
+			</article>
 
 		</div>
 
