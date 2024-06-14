@@ -39,7 +39,7 @@
 			<h3>Data Scientist yearning to apply data science and machine learning <br />
 				to improve the world through technology.</h3>
 			<ul class="actions">
-				<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+				<li><a href="#header" class="normal_button icon solid solo fa-arrow-down scrolly">Continue</a></li>
 			</ul>
 		</div>
 
@@ -400,6 +400,9 @@
 
 	</div>
 
+	
+
+	
 	<!-- Scripts -->
 	<script src="static/js/jquery.min.js"></script>
 	<script src="static/js/jquery.scrollex.min.js"></script>
@@ -412,3 +415,20 @@
 </body>
 
 </html>
+
+<!-- Chainlit Chatbot -->
+<div id="chatbot">
+	<script src="https://6mbnhj2r9p.ap-southeast-1.awsapprunner.com/copilot/index.js"></script>
+	<script>
+		window.mountChainlitWidget({
+			chainlitServer: "https://6mbnhj2r9p.ap-southeast-1.awsapprunner.com/",
+			<!-- theme: "dark", -->
+		});
+		window.addEventListener("chainlit-call-fn", (e) => {
+			const { name, args, callback } = e.detail;
+			if (name === "test") {
+				callback(args.response);
+			}
+		});
+	</script>
+</div>
