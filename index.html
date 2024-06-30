@@ -418,10 +418,12 @@
 
 <!-- Chainlit Chatbot -->
 <div id="chatbot">
-	<script src="https://6mbnhj2r9p.ap-southeast-1.awsapprunner.com/copilot/index.js"></script>
+	<script src="https://jsp7r8srb3.ap-southeast-1.awsapprunner.com/copilot/index.js"></script>
+	<!-- <script src="http://localhost:8000/copilot/index.js"></script> -->
 	<script>
 		window.mountChainlitWidget({
-			chainlitServer: "https://6mbnhj2r9p.ap-southeast-1.awsapprunner.com/",
+			chainlitServer: "https://jsp7r8srb3.ap-southeast-1.awsapprunner.com/",
+			<!-- chainlitServer: "http://localhost:8000/", -->
 			<!-- theme: "dark", -->
 		});
 		window.addEventListener("chainlit-call-fn", (e) => {
